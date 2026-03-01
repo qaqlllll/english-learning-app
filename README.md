@@ -23,15 +23,52 @@ A comprehensive, full-stack English vocabulary learning platform designed to hel
 *   **Backend & Database**: Supabase (PostgreSQL, Auth)
 *   **Language**: TypeScript
 
-## 🚀 Getting Started
+## ⚡️ Comprehensive Supabase Setup Guide
 
-### Prerequisites
+This project relies on Supabase for authentication and database storage. Follow these steps to set up your own backend.
 
-*   Node.js (v18+)
-*   npm or yarn
-*   A Supabase account
+### 1. Create a Supabase Project
+1.  Go to [Supabase](https://supabase.com/) and sign in.
+2.  Click **"New Project"**.
+3.  Choose your organization, give it a name (e.g., `English Learning App`), and set a secure database password.
+4.  Select a region close to your users.
+5.  Click **"Create new project"** and wait for it to initialize.
 
-### Installation
+### 2. Database Schema Setup
+1.  Once your project is ready, go to the **SQL Editor** (icon on the left sidebar).
+2.  Click **"New Query"**.
+3.  Copy and paste the contents of the migration files located in this repository at `supabase/migrations/`.
+    *   First, run the content of `0000_init.sql` (Creates tables and RLS policies).
+    *   Then, run the content of `0001_add_definition_zh.sql` (Adds Chinese definition support).
+4.  Click **"Run"** to execute the SQL and create your tables.
+
+### 3. Environment Variables
+1.  Go to **Project Settings** (gear icon) -> **API**.
+2.  Copy the `Project URL` and `anon public` key.
+3.  In your local project, rename `.env.local.example` to `.env.local`.
+4.  Paste the values:
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=your_project_url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+    ```
+
+### 4. Authentication Setup
+1.  Go to **Authentication** -> **Providers**.
+2.  **Email/Password**: Enabled by default.
+3.  **Google (Optional)**:
+    *   Enable **Google**.
+    *   You will need a **Client ID** and **Client Secret** from the [Google Cloud Console](https://console.cloud.google.com/).
+    *   In Google Cloud Console, create an OAuth 2.0 Client ID (Web Application).
+    *   Add your Supabase Callback URL (found in the Supabase Google Provider settings, usually `https://<project-ref>.supabase.co/auth/v1/callback`) to **Authorized redirect URIs**.
+    *   Paste the Client ID and Secret back into Supabase and save.
+
+### 5. URL Configuration (Crucial for Vercel Deployment)
+1.  Go to **Authentication** -> **URL Configuration**.
+2.  **Site URL**: Set this to your production URL (e.g., `https://your-app.vercel.app`).
+3.  **Redirect URLs**: Add `https://your-app.vercel.app/**` to allow all sub-paths (like `/auth/callback`) to work correctly.
+4.  If developing locally, make sure `http://localhost:3000` is also present.
+
+## 🚀 Getting Started (Local Development)
 
 1.  **Clone the repository:**
     ```bash
@@ -44,24 +81,12 @@ A comprehensive, full-stack English vocabulary learning platform designed to hel
     npm install
     ```
 
-3.  **Setup Environment Variables:**
-    Rename `.env.local.example` to `.env.local` and add your Supabase credentials:
-    ```env
-    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-    ```
-
-4.  **Setup Database:**
-    Run the SQL scripts located in `supabase/migrations/` in your Supabase SQL Editor to set up tables and RLS policies.
-
-5.  **Run the development server:**
+3.  **Run the development server:**
     ```bash
     npm run dev
     ```
     Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-6.  **Setup Google Auth (Optional):**
-    To enable Google Login, configure the Google provider in your Supabase Authentication settings and add the Client ID/Secret.
 
 ## 📖 JSON Import Format
 
