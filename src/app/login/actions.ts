@@ -1,5 +1,6 @@
 'use server'
 
+import { headers } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
@@ -31,6 +32,8 @@ export async function signup(formData: FormData) {
   const password = formData.get('password') as string
   const fullName = formData.get('fullName') as string
 
+  const origin = (await headers()).get('origin')
+
   const { error } = await supabase.auth.signUp({
     email,
     password,
@@ -38,7 +41,7 @@ export async function signup(formData: FormData) {
       data: {
         full_name: fullName,
       },
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/confirm`,
+      emailRedirectTo: `${origin}/auth/confirm`,
     },
   })
 
