@@ -46,9 +46,27 @@ export function ImportJsonDialog() {
           <DialogTitle>Import Vocabulary Set</DialogTitle>
           <DialogDescription>
             Upload a JSON file containing an array of words.
-            Format: {`[{ "word": "...", "definition": "...", "definition_zh": "...", "example": "..." }]`}
           </DialogDescription>
         </DialogHeader>
+        
+        <div className="text-sm text-muted-foreground bg-secondary/50 p-3 rounded-md space-y-2">
+            <p className="font-medium">How to generate with AI:</p>
+            <p className="text-xs">Copy this prompt to ChatGPT/Claude to generate your word list:</p>
+            <div className="bg-background border p-2 rounded text-xs font-mono whitespace-pre-wrap select-all">
+{`Generate a JSON array of 20 English vocabulary words about [TOPIC]. 
+Strictly follow this format for each object:
+[
+  {
+    "word": "example",
+    "definition": "English definition",
+    "definition_zh": "Chinese definition (Traditional)",
+    "example": "Example sentence."
+  }
+]
+Output only the JSON array.`}
+            </div>
+        </div>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="title">Set Title</Label>
