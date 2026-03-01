@@ -8,6 +8,7 @@ import { Word } from '@/types'
 import { Check, X, ArrowRight, RotateCcw } from 'lucide-react'
 import Link from 'next/link'
 import { shuffleArray } from '@/lib/utils'
+import { SpeakButton } from '@/components/speak-button'
 
 interface SpellingSessionProps {
   words: Word[]
@@ -124,7 +125,10 @@ export function SpellingSession({ words, setId }: SpellingSessionProps) {
         <CardContent className="pt-8 text-center space-y-6">
           <div>
             <h2 className="text-sm uppercase tracking-wide text-gray-500 mb-2">Definition</h2>
-            <p className="text-2xl font-medium mb-2">{currentWord.definition}</p>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <p className="text-2xl font-medium">{currentWord.definition}</p>
+              <SpeakButton text={currentWord.word} />
+            </div>
             {currentWord.definition_zh && (
               <p className="text-lg text-gray-500 font-normal">{currentWord.definition_zh}</p>
             )}
@@ -139,23 +143,23 @@ export function SpellingSession({ words, setId }: SpellingSessionProps) {
               onKeyDown={handleKeyDown}
               disabled={isAnswered}
               className={`text-center text-xl h-14 ${
-                feedback === 'correct' ? 'border-green-500 bg-green-50 text-green-700' : 
-                feedback === 'incorrect' ? 'border-red-500 bg-red-50 text-red-700' : ''
+                feedback === 'correct' ? 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400' : 
+                feedback === 'incorrect' ? 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400' : ''
               }`}
               autoFocus
             />
             {feedback === 'correct' && (
-              <Check className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 w-6 h-6" />
+              <Check className="absolute right-3 top-1/2 -translate-y-1/2 text-green-600 dark:text-green-400 w-6 h-6" />
             )}
             {feedback === 'incorrect' && (
-              <X className="absolute right-3 top-1/2 -translate-y-1/2 text-red-600 w-6 h-6" />
+              <X className="absolute right-3 top-1/2 -translate-y-1/2 text-red-600 dark:text-red-400 w-6 h-6" />
             )}
           </div>
 
           {feedback === 'incorrect' && (
             <div className="animate-in fade-in slide-in-from-top-2">
               <p className="text-sm text-gray-500 mb-1">Correct answer:</p>
-              <p className="text-xl font-bold text-green-600">{currentWord.word}</p>
+              <p className="text-xl font-bold text-green-600 dark:text-green-400">{currentWord.word}</p>
             </div>
           )}
         </CardContent>

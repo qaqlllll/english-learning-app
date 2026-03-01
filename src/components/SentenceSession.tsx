@@ -7,6 +7,7 @@ import { Word } from '@/types'
 import { ArrowRight, RotateCcw } from 'lucide-react'
 import Link from 'next/link'
 import { shuffleArray } from '@/lib/utils'
+import { SpeakButton } from '@/components/speak-button'
 
 interface SentenceSessionProps {
   words: Word[]
@@ -160,14 +161,17 @@ export function SentenceSession({ words, setId }: SentenceSessionProps) {
 
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle className="text-center text-2xl font-bold mb-2">{currentWord.word}</CardTitle>
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <CardTitle className="text-center text-2xl font-bold">{currentWord.word}</CardTitle>
+            <SpeakButton text={currentWord.word} />
+          </div>
           <p className="text-center text-gray-500">{currentWord.definition}</p>
         </CardHeader>
         <CardContent className="space-y-8">
           {/* Built Sentence Area */}
           <div className={`min-h-[80px] p-4 rounded-lg border-2 border-dashed flex flex-wrap gap-2 items-center justify-center transition-colors ${
-            feedback === 'correct' ? 'border-green-500 bg-green-50' : 
-            feedback === 'incorrect' ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'
+            feedback === 'correct' ? 'border-green-500 bg-green-50 dark:bg-green-900/20' : 
+            feedback === 'incorrect' ? 'border-red-500 bg-red-50 dark:bg-red-900/20' : 'border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-900'
           }`}>
             {builtSentenceObjs.length === 0 && !isAnswered && (
               <span className="text-gray-400">Click words below to build the sentence</span>
@@ -191,7 +195,10 @@ export function SentenceSession({ words, setId }: SentenceSessionProps) {
           {feedback === 'incorrect' && (
              <div className="text-center animate-in fade-in slide-in-from-top-2">
               <p className="text-sm text-gray-500 mb-1">Correct sentence:</p>
-              <p className="text-lg font-medium text-green-600">{currentWord.example}</p>
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-lg font-medium text-green-600 dark:text-green-400">{currentWord.example}</p>
+                <SpeakButton text={currentWord.example} size="sm" />
+              </div>
             </div>
           )}
 

@@ -7,6 +7,7 @@ import { Word } from '@/types'
 import { CheckCircle, XCircle, ArrowRight, RotateCcw } from 'lucide-react'
 import Link from 'next/link'
 import { shuffleArray } from '@/lib/utils'
+import { SpeakButton } from '@/components/speak-button'
 
 interface QuizSessionProps {
   words: Word[]
@@ -163,9 +164,9 @@ export function QuizSession({ words, setId }: QuizSessionProps) {
           const isCorrect = option.id === currentQuestion.target.id
           
           // Force styling for clarity
-          let buttonClass = "h-16 text-lg justify-start px-6 relative"
-          if (isAnswered && isCorrect) buttonClass += " bg-green-100 border-green-500 text-green-700 hover:bg-green-100"
-          if (isAnswered && isSelected && !isCorrect) buttonClass += " bg-red-100 border-red-500 text-red-700 hover:bg-red-100"
+          let buttonClass = "h-16 text-lg justify-start px-6 relative group"
+          if (isAnswered && isCorrect) buttonClass += " bg-green-100 dark:bg-green-900/30 border-green-500 text-green-700 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/30"
+          if (isAnswered && isSelected && !isCorrect) buttonClass += " bg-red-100 dark:bg-red-900/30 border-red-500 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30"
 
           return (
             <Button
@@ -175,9 +176,12 @@ export function QuizSession({ words, setId }: QuizSessionProps) {
               onClick={() => handleAnswer(option.id)}
               disabled={isAnswered}
             >
-              {option.word}
-              {isAnswered && isCorrect && <CheckCircle className="ml-auto w-5 h-5 text-green-600" />}
-              {isAnswered && isSelected && !isCorrect && <XCircle className="ml-auto w-5 h-5 text-red-600" />}
+              <span className="flex-1 text-left">{option.word}</span>
+              <div className="flex items-center gap-2">
+                <SpeakButton text={option.word} className="opacity-50 hover:opacity-100" />
+                {isAnswered && isCorrect && <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />}
+                {isAnswered && isSelected && !isCorrect && <XCircle className="w-5 h-5 text-red-600 dark:text-red-400" />}
+              </div>
             </Button>
           )
         })}

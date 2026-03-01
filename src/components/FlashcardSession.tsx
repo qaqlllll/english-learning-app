@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight, RotateCw } from 'lucide-react'
 import { Word } from '@/types'
 import { shuffleArray } from '@/lib/utils'
+import { SpeakButton } from '@/components/speak-button'
 
 interface FlashcardSessionProps {
   words: Word[]
@@ -63,10 +64,13 @@ export function FlashcardSession({ words }: FlashcardSessionProps) {
         >
           {/* Front */}
           <div className="absolute inset-0 w-full h-full [backface-visibility:hidden]">
-            <Card className="w-full h-full flex items-center justify-center bg-white shadow-xl">
-              <CardContent className="flex flex-col items-center justify-center p-6 h-full">
-                <h2 className="text-4xl font-bold mb-4">{currentWord.word}</h2>
-                <p className="text-sm text-gray-400 mt-4">Click to flip</p>
+            <Card className="w-full h-full flex items-center justify-center bg-card dark:bg-card shadow-xl border-2">
+              <CardContent className="flex flex-col items-center justify-center p-6 h-full relative w-full">
+                <div className="absolute top-4 right-4 z-10">
+                  <SpeakButton text={currentWord.word} />
+                </div>
+                <h2 className="text-4xl font-bold mb-4 text-card-foreground">{currentWord.word}</h2>
+                <p className="text-sm text-muted-foreground mt-4">Click to flip</p>
               </CardContent>
             </Card>
           </div>
@@ -75,14 +79,17 @@ export function FlashcardSession({ words }: FlashcardSessionProps) {
           <div 
             className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)]"
           >
-            <Card className="w-full h-full flex items-center justify-center bg-blue-50 shadow-xl">
-              <CardContent className="flex flex-col items-center justify-center p-6 h-full text-center">
-                <h3 className="text-2xl font-semibold mb-2 text-gray-800">{currentWord.definition}</h3>
+            <Card className="w-full h-full flex items-center justify-center bg-blue-50 dark:bg-zinc-900 shadow-xl border-2">
+              <CardContent className="flex flex-col items-center justify-center p-6 h-full text-center relative w-full">
+                <div className="absolute top-4 right-4 z-10">
+                  <SpeakButton text={currentWord.word} />
+                </div>
+                <h3 className="text-2xl font-semibold mb-2 text-foreground">{currentWord.definition}</h3>
                 {showChinese && currentWord.definition_zh && (
-                  <p className="text-lg text-gray-600 mb-4 font-medium">{currentWord.definition_zh}</p>
+                  <p className="text-lg text-muted-foreground mb-4 font-medium">{currentWord.definition_zh}</p>
                 )}
                 {currentWord.example && (
-                  <p className="text-lg text-gray-600 italic">&quot;{currentWord.example}&quot;</p>
+                  <p className="text-lg text-muted-foreground italic">&quot;{currentWord.example}&quot;</p>
                 )}
               </CardContent>
             </Card>
