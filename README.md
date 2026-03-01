@@ -6,8 +6,9 @@ A comprehensive, full-stack English vocabulary learning platform designed to hel
 
 ## 🌟 Key Features
 
-*   **🔐 Secure Authentication**: Seamless sign-up and login system powered by Supabase Auth.
+*   **🔐 Secure Authentication**: Seamless sign-up and login system powered by Supabase Auth. Includes **Google Login** integration.
 *   **📂 Vocabulary Management**: Create custom word sets or import them via JSON.
+*   **🤖 AI-Assisted Import**: Built-in prompt generator to help you create vocabulary lists using ChatGPT/Claude.
 *   **🧠 Interactive Learning Modes**:
     *   **Flashcards**: Classic flip-card study with bilingual definitions.
     *   **Quiz**: Test your recall with multiple-choice questions.
@@ -59,9 +60,12 @@ A comprehensive, full-stack English vocabulary learning platform designed to hel
     ```
     Open [http://localhost:3000](http://localhost:3000) to view the app.
 
+6.  **Setup Google Auth (Optional):**
+    To enable Google Login, configure the Google provider in your Supabase Authentication settings and add the Client ID/Secret.
+
 ## 📖 JSON Import Format
 
-To import words, use a JSON file with the following structure:
+To import words, use a JSON file with the following structure. You can use the built-in AI prompt in the "Import JSON" dialog to generate this format automatically.
 
 ```json
 [
