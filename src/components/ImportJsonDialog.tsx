@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
+import { Loader2 } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -81,7 +82,14 @@ Output only the JSON array.`}
           
           <DialogFooter>
             <Button type="submit" disabled={loading}>
-              {loading ? 'Importing...' : 'Import'}
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Importing...
+                </>
+              ) : (
+                'Import'
+              )}
             </Button>
           </DialogFooter>
         </form>

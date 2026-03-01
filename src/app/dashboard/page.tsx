@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ImportJsonDialog } from '@/components/ImportJsonDialog'
 import { Button } from '@/components/ui/button'
+import { SubmitButton } from '@/components/submit-button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import { signOut } from '@/app/actions'
 import { deleteVocabularySet } from './actions'
@@ -36,7 +37,7 @@ export default async function DashboardPage() {
           <ModeToggle />
           <ImportJsonDialog />
           <form action={signOut}>
-            <Button variant="ghost">Sign out</Button>
+            <SubmitButton variant="ghost" pendingText="Signing out...">Sign out</SubmitButton>
           </form>
         </div>
       </header>
@@ -62,7 +63,7 @@ export default async function DashboardPage() {
               <CardFooter className="flex justify-end pt-2 border-t">
                 <form action={deleteVocabularySet}>
                   <input type="hidden" name="id" value={set.id} />
-                  <Button variant="destructive" size="sm" type="submit">Delete</Button>
+                  <SubmitButton variant="destructive" size="sm" pendingText="Deleting...">Delete</SubmitButton>
                 </form>
               </CardFooter>
             </Card>
