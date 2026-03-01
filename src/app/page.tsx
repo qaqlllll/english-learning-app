@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Button } from "../components/ui/button"
+import { ModeToggle } from "@/components/mode-toggle"
 
 export default function Home() {
   return (
@@ -8,14 +9,15 @@ export default function Home() {
         <Link className="flex items-center justify-center font-bold text-xl" href="/">
           English Master
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
+        <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
           <Link className="text-sm font-medium hover:underline underline-offset-4" href="/login">
             Login
           </Link>
+          <ModeToggle />
         </nav>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gray-50">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gray-50 dark:bg-zinc-900">
           <div className="container px-4 md:px-6 mx-auto text-center">
             <div className="flex flex-col items-center space-y-4">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">

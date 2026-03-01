@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import { signOut } from '@/app/actions'
 import { deleteVocabularySet } from './actions'
+import { ModeToggle } from '@/components/mode-toggle'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -32,6 +33,7 @@ export default async function DashboardPage() {
       <header className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Your Vocabulary Sets</h1>
         <div className="flex gap-4 items-center">
+          <ModeToggle />
           <ImportJsonDialog />
           <form action={signOut}>
             <Button variant="ghost">Sign out</Button>
@@ -40,8 +42,8 @@ export default async function DashboardPage() {
       </header>
 
       {sets.length === 0 ? (
-        <div className="text-center py-12 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-          <p className="text-gray-500 mb-4">You haven&apos;t created any vocabulary sets yet.</p>
+        <div className="text-center py-12 bg-gray-50 dark:bg-zinc-900 rounded-lg border border-dashed border-gray-300 dark:border-zinc-700">
+          <p className="text-gray-500 dark:text-gray-400 mb-4">You haven&apos;t created any vocabulary sets yet.</p>
           <ImportJsonDialog />
         </div>
       ) : (

@@ -1,5 +1,6 @@
 import { login, signup, signInWithGoogle } from './actions'
 import { Button } from "@/components/ui/button"
+import { ModeToggle } from "@/components/mode-toggle"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,7 +9,10 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const params = await searchParams;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-muted/40 p-4 relative">
+      <div className="absolute top-4 right-4">
+        <ModeToggle />
+      </div>
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">English Learning App</CardTitle>
